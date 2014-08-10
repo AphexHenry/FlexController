@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Igloo Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 33px Helvetica, Arial; }
+      #canvas{width:100%;}
+    </style>
+  </head>
+
+  <body>
+
+    <h1>piou! </h1>
+    <img id="img", src='button.png', style="pointer-events:none" alt=""> </img>
+    <canvas id="canvas">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery-1.11.1.js"></script>
+    <script>
+
+      var socket = io();
+      var clientList = [];
+
+      window.ondeviceorientation = function(event) 
+      {
+          var out = {};
+          out.alpha    = event.alpha;
+          out.beta     = event.beta;
+          socket.emit('device orientation', out);
+      }
+
+      document.addEventListener('touchstart', function(event) {
+        socket.emit('piou', {touch:1});
+      }, false);
+
+      document.addEventListener('touchend', function(event) {
+        socket.emit('piou', {touch:0});
+      }, false);
+
+    </script>
+  </body>
+</html>

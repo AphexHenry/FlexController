@@ -1,0 +1,17 @@
+--- 
+applications: 
+  .: 
+    name: igloodemo
+    services: 
+      mongodb-55171: 
+        type: mongodb
+    instances: 1
+    infra: eu-aws
+    url: ${name}.${target-base}
+    framework: 
+      name: node
+      info: 
+        exec: 
+        mem: 64M
+        description: Node.js Application
+    mem: 64M

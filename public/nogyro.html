@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Igloo No Gyro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 33px Helvetica, Arial; }
+      #canvas{width:100%;}
+    </style>
+  </head>
+
+  <body>
+
+    <h1>piou! </h1>
+    <img id="img", src='button.png'> </img>
+    <canvas id="canvas">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery-1.11.1.js"></script>
+    <script>
+
+      var socket = io();
+      var clientList = [];
+
+      window.ondevicemotion = function(event) {
+      var xVal = event.accelerationIncludingGravity.x;
+      var yVal = event.accelerationIncludingGravity.y;
+      
+          var out = {};
+          out.alpha     = (xVal + 0.5) * 15;
+          out.beta    = yVal * 15;
+          socket.emit('device orientation', out);
+      }
+
+      $('#img')[0].addEventListener('touchstart', function(event) {
+        socket.emit('piou', {});
+      }, false);
+
+    </script>
+  </body>
+</html>
